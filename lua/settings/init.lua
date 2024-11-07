@@ -1,0 +1,7 @@
+require("settings.remap")
+require("settings.primeagen")
+-- require("settings.karabiner")
+require("settings.colorscheme")
+require("settings.statusline")
+require("settings.settings")
+require("settings.git")
