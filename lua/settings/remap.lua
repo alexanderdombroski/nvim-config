@@ -34,6 +34,13 @@ vim.keymap.set('v', '<C-x>', '"+d', { noremap = true })  -- Visual mode (cut)
 vim.keymap.set("n", "<leader>t.", function() vim.cmd("tabnext") end, { desc = "Next tab" })
 vim.keymap.set("n", "<leader>t,", function() vim.cmd("tabprevious") end, { desc = "Previous tab" })
 vim.keymap.set("n", "<leader>tq", function() vim.cmd("tabclose") end, { desc = "Close current tab" })
-vim.keymap.set("n", "<leader>tn", function() vim.cmd("tabnew") end, { desc = "Open a new tab" })
+vim.keymap.set("n", "<leader>tn", function() vim.cmd("tabnew") vim.cmd("Ex") end, { desc = "Open a new tab" })
 
 
+-- Line Moving
+vim.keymap.set("v", "<C-up>", ":m '<-2<CR>gv=gv", {})
+vim.keymap.set("v", "<C-down>", ":m '>+1<CR>gv=gv", {})
+vim.keymap.set("n", "<C-up>", ":m .-2<CR>==", {})
+vim.keymap.set("n", "<C-down>", ":m .+1<CR>==", {})
+vim.keymap.set("i", "<C-up>", "<Esc>:m .-2<CR>==gi", {})
+vim.keymap.set("i", "<C-down>", "<Esc>:m .+1<CR>==gi", {})
