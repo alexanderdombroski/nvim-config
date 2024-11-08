@@ -51,3 +51,16 @@ vim.keymap.set("n", "<C-f>", function()
     vim.fn.input("/")
     vim.cmd("normal! zz")
 end)
+
+
+-- Find and Replace
+vim.keymap.set("n", "<C-d>", "yyp", { desc = "Duplicate line" })
+vim.keymap.set("v", "<C-d>", ":t'><CR>gv", { desc = "Duplicate selection" })
+vim.keymap.set("i", "<C-d>", "<Esc>yypA", { desc = "Duplicate line in insert mode" })
+
+
+-- Add a newline below line
+vim.keymap.set("n", "<S-CR>", "o<Esc>", { desc = "Add a new line below" })
+
+
+
