@@ -14,6 +14,6 @@ vim.keymap.set("n", "<leader>ga.", function()
 end, { desc = "Save all and stage all files" })
 
 vim.keymap.set("n", "<leader>gc", ":Git commit")
-vim.keymap.set("n", "<leader>gp", ":Git push")
+vim.keymap.set("n", "<leader>gp", ":Git push<CR>")
 
 
