@@ -33,3 +33,10 @@ require("lazy").setup({
   -- automatically check for plugin updates
   checker = { enabled = true },
 })
+
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "lazy",
+    callback = function()
+        vim.keymap.set("n", "<ESC>", ":q<CR>", { buffer = true })
+    end,
+})

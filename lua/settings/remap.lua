@@ -8,7 +8,8 @@ vim.keymap.set('n', '<C-s>', function() vim.cmd('w') end, { desc = "Save file" }
 -- Map CMD+Z to Undo
 vim.keymap.set("n", "<C-z>", "u", { noremap = true })
 vim.keymap.set("i", "<C-z>", "u", { noremap = true })
--- CMD+R is still undo
+
+vim.keymap.set("n", "r", ":redo<CR>", { desc = "Redo" }) -- r to redo
 
 
 -- Allow Mouse Support
@@ -45,15 +46,15 @@ vim.keymap.set("n", "<C-down>", ":m .+1<CR>==", {})
 vim.keymap.set("i", "<C-up>", "<Esc>:m .-2<CR>==gi", {})
 vim.keymap.set("i", "<C-down>", "<Esc>:m .+1<CR>==gi", {})
 
--- Searching
+-- Find and Replace
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "<C-f>", function()
     vim.fn.input("/")
     vim.cmd("normal! zz")
 end)
+vim.keymap.set("n", "<C-r>", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
-
--- Find and Replace
+-- Duplicate Line
 vim.keymap.set("n", "<C-d>", "yyp", { desc = "Duplicate line" })
 vim.keymap.set("v", "<C-d>", ":t'><CR>gv", { desc = "Duplicate selection" })
 vim.keymap.set("i", "<C-d>", "<Esc>yypA", { desc = "Duplicate line in insert mode" })
@@ -62,5 +63,8 @@ vim.keymap.set("i", "<C-d>", "<Esc>yypA", { desc = "Duplicate line in insert mod
 -- Add a newline below line
 vim.keymap.set("n", "<S-CR>", "o<Esc>", { desc = "Add a new line below" })
 
+
+-- NO Ops
+vim.keymap.set({"n", "v", "o"}, "q", "<Nop>", { desc = "Disable macro recording" })
 
 

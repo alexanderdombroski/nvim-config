@@ -71,6 +71,8 @@ require("rose-pine").setup({
 
         TelescopePromptNormal = { fg = "text", bg = "surface" },
         TelescopePromptBorder = { fg = "surface", bg = "surface" },
+
+        Visual = { bg = "muted" }
     },
 
     before_highlight = function(group, highlight, palette)
@@ -78,7 +80,7 @@ require("rose-pine").setup({
         if highlight.undercurl then
             highlight.undercurl = false
         end
-        
+   
         -- Change palette colour
         if highlight.fg == palette.pine then
             highlight.fg = palette.foam
@@ -98,7 +100,6 @@ function ColorMyPencils(color)
 
 	vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
  	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
-
 end
 
 
