@@ -8,9 +8,9 @@ vim.keymap.set({'n', 'v'}, '<C-q>', ':wa | qa<CR>', { noremap = true, silent = t
 
 -- Map CMD+Z to Undo
 vim.keymap.set("n", "<C-z>", "u", { noremap = true })
-vim.keymap.set("i", "<C-z>", "u", { noremap = true })
-
-vim.keymap.set("n", "<C-r>", ":redo<CR>", { desc = "Redo" }) -- r to redo
+vim.keymap.set("i", "<C-z>", "<C-o>u", { noremap = true })
+vim.keymap.set({"n", 'i'}, "<C-r>", "<C-o>:redo<CR>", { desc = "Redo" })
+vim.keymap.set({"n", 'i'}, "<C-S-Z>", "<C-o>:redo<CR>", { desc = "Redo" })
 
 
 -- Allow Mouse Support
