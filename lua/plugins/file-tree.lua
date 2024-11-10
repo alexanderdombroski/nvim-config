@@ -16,9 +16,9 @@ return {
       api.config.mappings.default_on_attach(bufnr)
 
       -- custom mappings
-      vim.keymap.set('n', '<leader>qw', ':NvimTreeToggle<CR>')
       vim.keymap.set('n', '<leader>q?', api.tree.toggle_help, opts('Help'))
     end
+    vim.keymap.set('n', '<leader>qw', ':NvimTreeToggle<CR>')
 
     require("nvim-tree").setup({
       sort = {
@@ -33,6 +33,7 @@ return {
       filters = {
         dotfiles = true,
       },
+      hijack_netrw = false,
       on_attach = my_on_attach,
     })
   end,
