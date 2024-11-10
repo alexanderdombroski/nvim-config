@@ -1,39 +1,41 @@
-require('roseline').setup {
-    theme = 'rose-pine',
-    layout = {
-        a = section_a,
-        b = section_b,
-        c = section_c,
-        d = section_d,
-        e = section_e,
+require('lualine').setup {
+  options = {
+    icons_enabled = true,
+    theme = 'auto',
+    component_separators = { left = '', right = ''},
+    section_separators = { left = '', right = ''},
+    disabled_filetypes = {
+      statusline = {},
+      winbar = {},
     },
-    icons = {
-        vim = ' ',
-        git = {
-            head = ' ',
-            added = ' ',
-            changed = ' ',
-            removed = ' ',
-        },
-        diagnostic = {
-            Error = ' ',
-            Warning = ' ',
-            Information = ' ',
-            Question = ' ',
-            Hint = '󰌶 ',
-            Debug = ' ',
-            Ok = '󰧱 ',
-        },
-        os = {
-            Linux = ' ',
-            microsoft = ' ',
-            Darwin = ' ',
-        },
-        default = { left = '', right = '' },
-        block = { left = '█', right = '█' },
-        round = { left = '', right = '' },
-	-- default = { left = ' ', right = ' ' },
-	-- lock = { left = ' ', right = ' ' },
-	-- round = { left = ' ', right = ' ' },
-    },
+    ignore_focus = {},
+    always_divide_middle = true,
+    always_show_tabline = true,
+    globalstatus = false,
+    refresh = {
+      statusline = 100,
+      tabline = 100,
+      winbar = 100,
+    }
+  },
+  sections = {
+    lualine_a = {'mode'},
+    lualine_b = {'branch', 'diff'},
+    lualine_c = {'filename'},
+    lualine_x = {'filetype'},
+    lualine_y = {'progress', 'location'},
+    lualine_z = {}
+  },
+  inactive_sections = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = {'filename'},
+    lualine_x = {'location'},
+    lualine_y = {},
+    lualine_z = {}
+  },
+  tabline = {},
+  winbar = {},
+  inactive_winbar = {},
+  extensions = {}
 }

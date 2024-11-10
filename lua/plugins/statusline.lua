@@ -1,9 +1,6 @@
 return {
  {
-    'maxmx03/roseline',
-    opts = {},
-    dependencies = {
-      'rose-pine/neovim',
-    }
+    'nvim-lualine/lualine.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' }
  }
 }

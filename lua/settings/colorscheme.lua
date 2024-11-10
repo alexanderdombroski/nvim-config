@@ -94,15 +94,16 @@ require("rose-pine").setup({
 -- vim.cmd("colorscheme rose-pine-dawn")
 
 
-function ColorMyPencils(color)
+function Recolor(color)
 	color = color or "rose-pine-main"
 	vim.cmd.colorscheme(color)
 
 	vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
  	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+    require('settings.statusline')
 end
 
 
-ColorMyPencils()
+Recolor()
 
 
