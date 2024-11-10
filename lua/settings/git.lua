@@ -1,5 +1,5 @@
 
--- git commands
+-- Git commands
 vim.keymap.set("n", "<leader>gs", vim.cmd.Git)
 vim.keymap.set("n", "<leader>gll", ":Git log<CR>")
 vim.keymap.set("n", "<leader>gl1", ":Git log --oneline<CR>")
@@ -62,3 +62,12 @@ vim.keymap.set("n", "<leader>gog", ":Git config --global ")
 
 -- Gitk
 vim.keymap.set("n", "<leader>gk", ":!gitk<CR>")
+
+
+
+
+-- Help Function to display git commands
+vim.keymap.set('n', '<leader>gh', function ()
+    vim.cmd("map <leader>g")
+end, { noremap = true })
+
