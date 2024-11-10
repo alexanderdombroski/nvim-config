@@ -47,7 +47,6 @@ return {
 
     -- Linewise comment toggle for normal mode and insert mode (using <leader>/)
     vim.keymap.set("n", "<leader>/", "<Plug>(comment_toggle_linewise_current)", { noremap = true, silent = true })
-    vim.keymap.set("i", "<leader>/", "<Esc><Plug>(comment_toggle_linewise_current)i", { noremap = true, silent = true })
     end
   }
 }
