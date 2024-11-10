@@ -2,20 +2,21 @@
 vim.api.nvim_set_keymap('i', 'CAPSLOCK', '<ESC>', { noremap = true, silent = true })
 
 -- Map CMD+C to Save
-vim.keymap.set('n', '<C-s>', function() vim.cmd('w') end, { desc = "Save file" })
-
+vim.keymap.set({'n', 'v', 'i'}, '<C-s>', '<ESC>:w<CR>', { desc = "Save file" })
+-- Map CMD-Q to Quit
+vim.keymap.set({'n', 'v'}, '<C-q>', ':wa | qa<CR>', { noremap = true, silent = true })
 
 -- Map CMD+Z to Undo
 vim.keymap.set("n", "<C-z>", "u", { noremap = true })
 vim.keymap.set("i", "<C-z>", "u", { noremap = true })
 
-vim.keymap.set("n", "r", ":redo<CR>", { desc = "Redo" }) -- r to redo
+vim.keymap.set("n", "<C-r>", ":redo<CR>", { desc = "Redo" }) -- r to redo
 
 
 -- Allow Mouse Support
 vim.o.mouse = "a"
 vim.opt.clipboard = 'unnamedplus'
-vim.keymap.set('v', '<BS>', 'd', { noremap = true }) -- Allows highlight then delete
+vim.keymap.set('v', '<BS>', '"_di', { noremap = true }) -- Allows highlight then delete
 
 
 -- Map CMD+C to copy to clipboard
@@ -50,11 +51,40 @@ vim.keymap.set("i", "<C-down>", "<Esc>:m .+1<CR>==gi", {})
 
 -- Find and Replace
 vim.keymap.set("n", "n", "nzzzv")
-vim.keymap.set("n", "<C-f>", function()
+vim.keymap.set("n", "<leader>ff", function()
     vim.fn.input("/")
     vim.cmd("normal! zz")
 end)
-vim.keymap.set("n", "<C-r>", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+vim.keymap.set("n", "<C-f>", "<leader>ff")
+vim.keymap.set("n", "<leader>frw", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+vim.keymap.set("n", "<leader>fra", function()
+    vim.cmd("wa")  -- Save all files
+    local previous = vim.fn.input("Replace: ")
+    local next = vim.fn.input("With: ")
+    local escaped_previous = vim.fn.escape(previous, '\\/') -- Escape any special characters
+
+    require('telescope.builtin').grep_string({
+        search = previous,
+        word_match = "-w",
+        additional_args = function() return { "--case-sensitive" } end,
+        attach_mappings = function(prompt_bufnr)
+            vim.defer_fn(function()
+                local actions = require("telescope.actions")
+                actions.send_to_qflist(prompt_bufnr)
+                vim.cmd("cclose")  -- Close Telescope quickfix preview window
+
+                -- Check if the quickfix list is populated
+                if #vim.fn.getqflist() > 0 then
+                    -- Run the substitution with confirmation
+                    vim.cmd("cdo s/" .. escaped_previous .. "/" .. next .. "/gc")
+                else
+                    print("No matches found for: " .. previous)
+                end
+            end, 200)  -- Delay slightly to allow Telescope to fully open
+            return true
+        end
+    })
+end, { noremap = true, silent = true })
 
 -- Duplicate Line
 vim.keymap.set("n", "<C-d>", "yyp", { desc = "Duplicate line" })

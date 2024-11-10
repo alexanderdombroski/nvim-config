@@ -16,7 +16,7 @@ vim.smartindent = true
 
 vim.opt.wrap = false -- turn off linewrap
 
--- find and replace
+-- find and replace 
 vim.opt.incsearch = true
 vim.opt.hlsearch = false
 
