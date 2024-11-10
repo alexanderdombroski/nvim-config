@@ -36,6 +36,8 @@ vim.keymap.set("n", "<leader>t.", function() vim.cmd("tabnext") end, { desc = "N
 vim.keymap.set("n", "<leader>t,", function() vim.cmd("tabprevious") end, { desc = "Previous tab" })
 vim.keymap.set("n", "<leader>tq", function() vim.cmd("tabclose") end, { desc = "Close current tab" })
 vim.keymap.set("n", "<leader>tn", function() vim.cmd("tabnew") vim.cmd("Ex") end, { desc = "Open a new tab" })
+vim.keymap.set("n", "<leader>t<left>", "<C-w>h")
+vim.keymap.set("n", "<leader>t<right>", "<C-w>l")
 
 
 -- Line Moving
