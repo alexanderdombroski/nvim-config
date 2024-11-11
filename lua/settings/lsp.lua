@@ -126,5 +126,10 @@ cmp.setup({
 })
 
 
-
+-- -------------------- Fix Paren Inserter --------------------
+vim.keymap.set("v", "(", "<Esc>`<i(<Esc>`>a)", { noremap = true, silent = true })
+vim.keymap.set("v", "[", "<Esc>`<i[<Esc>`>a]", { noremap = true, silent = true })
+vim.keymap.set("v", "{", "<Esc>`<i{<Esc>`>a}", { noremap = true, silent = true })
+vim.keymap.set("v", "\"", "<Esc>`<i\"<Esc>`>a\"", { noremap = true, silent = true })
+vim.keymap.set("v", "'", "<Esc>`<i'<Esc>`>a'", { noremap = true, silent = true })
 
