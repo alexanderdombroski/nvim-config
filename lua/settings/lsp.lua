@@ -30,27 +30,36 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
-
 -- -------------------- List of LSPs -----------------------
-require('lspconfig').csharp_ls.setup({})
-require('lspconfig').java_language_server.setup({})
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-
+require('lspconfig').csharp_ls.setup({
+    capabilitie = capabilities
+})
+require('lspconfig').java_language_server.setup({
+    capabilitie = capabilities
+})
 --Enable (broadcasting) snippet capability for completion
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
+-- local capabilities = vim.lsp.protocol.make_client_capabilities()
+-- capabilities.textDocument.completion.completionItem.snippetSupport = true
 require('lspconfig').cssls.setup({
   capabilities = capabilities,
 })
-require('lspconfig').cssmodules_ls.setup({})
-require('lspconfig').html.setup({})
+require('lspconfig').cssmodules_ls.setup({
+    capabilitie = capabilities
+})
+require('lspconfig').html.setup({
+    capabilitie = capabilities
+})
 
 vim.g.markdown_fenced_languages = {
 	  "ts=typescript"
 }
-require('lspconfig').denols.setup({})
+require('lspconfig').denols .setup({
+    capabilitie = capabilities
+})
 require('lspconfig').eslint.setup({
-  on_attach = function(client, bufnr)
+  on_attach = function(_, bufnr)
     vim.api.nvim_create_autocmd("BufWritePre", {
       buffer = bufnr,
       command = "EslintFixAll",
@@ -62,11 +71,16 @@ require('lspconfig').jsonls.setup ({
     capabilities = capabilities,
 })
 
-require('lspconfig').erlangls.setup({})
-require('lspconfig').elp.setup({}) -- Erlang
+require('lspconfig').erlangls.setup({
+    capabilitie = capabilities
+})
+require('lspconfig').elp.setup({
+    capabilitie = capabilities
+}) -- Erlang
 
 
 require('lspconfig').lua_ls.setup ({
+  capabilities = capabilities,
   on_init = function(client)
     if client.workspace_folders then
       local path = client.workspace_folders[1].name
@@ -100,10 +114,18 @@ require('lspconfig').lua_ls.setup ({
   }
 })
 
-require('lspconfig').marksman.setup({}) -- Markdown
-require('lspconfig').pylsp.setup({}) -- Python
-require('lspconfig').sqlls.setup({}) -- SQL (not installed)
-require('lspconfig').vimls.setup({}) --VimScript
+require('lspconfig').marksman.setup({
+    capabilitie = capabilities
+}) -- Markdown
+require('lspconfig').pylsp.setup({
+    capabilitie = capabilities
+}) -- Python
+require('lspconfig').sqlls.setup({
+    capabilities = capabilities
+}) -- SQL (not installed)
+require('lspconfig').vimls.setup({
+    capabilities = capabilities
+}) --VimScript
 
 
 -- -------------------- Setup Autocompletion -----------------------
@@ -113,6 +135,7 @@ local cmp = require('cmp')
 cmp.setup({
   sources = {
     {name = 'nvim_lsp'},
+    {name = 'luasnip'}
   },
   mapping = cmp.mapping.preset.insert({
 	-- Custom Autocompletion added here
@@ -123,6 +146,19 @@ cmp.setup({
       vim.snippet.expand(args.body)
     end,
   },
+  formatting = {
+    format = function(entry, item)
+      -- Add source name to the menu item
+      local source_names = {
+        nvim_lsp = "[LSP]",
+        luasnip = "[Luasnip]",
+        buffer = "[Buffer]",
+        path = "[Path]"
+      }
+      item.menu = source_names[entry.source.name] or "[Other]"
+      return item
+    end,
+  }
 })
 
 
