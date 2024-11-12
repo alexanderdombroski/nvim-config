@@ -11,6 +11,9 @@ return {
         build = "make install_jsregexp"
     },
     {
+        "rafamadriz/friendly-snippets"
+    },
+    {
         'hrsh7th/nvim-cmp',
     }
 }

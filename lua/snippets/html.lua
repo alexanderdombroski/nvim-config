@@ -13,7 +13,7 @@ return {
     "  <title>Document</title>",
     "</head>",
     "<body>",
-    ""}), i(1), t({
+    "  "}), i(1), t({
     "",
     "</body>",
     "</html>",

@@ -131,35 +131,90 @@ require('lspconfig').vimls.setup({
 -- -------------------- Setup Autocompletion -----------------------
 
 local cmp = require('cmp')
+local luasnip = require('luasnip')
 
 cmp.setup({
   sources = {
     {name = 'nvim_lsp'},
     {name = 'luasnip'}
   },
+  -- Key mapping setup
   mapping = cmp.mapping.preset.insert({
-	-- Custom Autocompletion added here
-        ['<Tab>'] = cmp.mapping.confirm({ select = true })
+    -- Use Tab to expand the snippet and navigate through insert nodes
+    ['<Tab>'] = cmp.mapping(function(fallback)
+      if luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()  -- Expands the snippet or jumps to the next node
+      elseif cmp.visible() then
+        cmp.confirm({
+            select = false,
+        })
+      else
+        fallback()  -- Fallback to the default behavior if no completion
+      end
+    end, { 'i', 's' }),
+
+    -- Shift-Tab for going back through the insert nodes
+    ['<S-Tab>'] = cmp.mapping(function(fallback)
+      if luasnip.jumpable(-1) then
+        luasnip.jump(-1)  -- Jump to the previous node
+      else
+        fallback()  -- Fallback if no previous node to jump to
+      end
+    end, { 'i', 's' }),
+
+    -- Cycle through choice nodes with 'n'
+    ['<C-n>'] = cmp.mapping(function(fallback)
+      if luasnip.choice_active() then
+        luasnip.change_choice(1)  -- Move to the next choice in the choice node
+      else
+        fallback()  -- Fallback if no choice node is active
+      end
+    end, { 'i', 's' }),
+
+    -- Confirm the completion with Enter
+    ['<CR>'] = cmp.mapping.confirm({ select = true }),
   }),
   snippet = {
     expand = function(args)
       vim.snippet.expand(args.body)
-    end,
+    end
+  },
+  window = {
+    completion = cmp.config.window.bordered(),
+    documentation = cmp.config.window.bordered()
   },
   formatting = {
     format = function(entry, item)
       -- Add source name to the menu item
       local source_names = {
         nvim_lsp = "[LSP]",
-        luasnip = "[Luasnip]",
         buffer = "[Buffer]",
         path = "[Path]"
       }
-      item.menu = source_names[entry.source.name] or "[Other]"
+
+      -- Set a custom label if it's a LuaSnip source and contains specific indicators
+      if entry.source.name == "luasnip" then
+        local name = entry:get_completion_item().word
+        if string.sub(name, -2) == "--" then
+          item.menu = "[Luasnip]"
+        else
+          item.menu = "[VS]"
+        end
+      else
+        item.menu = source_names[entry.source.name] or "[Other]"
+      end
+
+      -- Truncate item label to a max width of 30 characters
+      local max_label_width = 30
+      if #item.abbr > max_label_width then
+        item.abbr = string.sub(item.abbr, 1, max_label_width - 3) .. "..."
+      end
       return item
-    end,
+    end
   }
 })
+
+
 
 
 -- -------------------- Fix Paren Inserter --------------------

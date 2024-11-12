@@ -98,5 +98,6 @@ vim.keymap.set("n", "<S-CR>", "o<Esc>", { desc = "Add a new line below" })
 
 -- NO Ops
 vim.keymap.set({"n", "v", "o"}, "q", "<Nop>", { desc = "Disable macro recording" })
+vim.keymap.set({"n", "v", "o", "i"}, "<C-n>", "<Nop>", { desc = "Disable macro recording" })
 
 

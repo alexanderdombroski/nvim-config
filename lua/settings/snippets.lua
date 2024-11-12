@@ -9,12 +9,18 @@ function LoadSnippets()
     local files = vim.fn.glob(snippets_path .. "*.lua", true, true)
     for _, file in ipairs(files) do
         local language = vim.fn.fnamemodify(file, ":t:r") -- Extract filetype from filename
-	local snippet_table = require("snippets." .. language)
+    	local snippet_table = require("snippets." .. language)
 
-	if next(snippet_table) then
-	    -- Add snippets to LuaSnip for this filetype
-	    luasnip.add_snippets(language, snippet_table)
-	end
+
+    	if next(snippet_table) then
+            -- Add a custom tag or label to distinguish custom snippets
+            for _, snippet in pairs(snippet_table) do
+                snippet.trigger = snippet.trigger ..  "--"
+            end
+
+    	    -- Add snippets to LuaSnip for this filetype
+    	    luasnip.add_snippets(language, snippet_table)
+    	end
     end
 end
 
