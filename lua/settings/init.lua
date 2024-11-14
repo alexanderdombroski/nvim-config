@@ -5,4 +5,3 @@ require("settings.git")
 require("settings.settings")
 require("settings.snippets")
 require("settings.lsp")
-

@@ -46,8 +46,10 @@ vim.keymap.set("n", "<leader>1", function() harpoon:list():select(1) end)
 vim.keymap.set("n", "<leader>2", function() harpoon:list():select(2) end)
 vim.keymap.set("n", "<leader>3", function() harpoon:list():select(3) end)
 vim.keymap.set("n", "<leader>4", function() harpoon:list():select(4) end)
-vim.keymap.set("n", "<C-,>", function() harpoon:list():prev() end)  -- CTRL + '<' to go to previous
-vim.keymap.set("n", "<C-.>", function() harpoon:list():next() end)  -- CTRL + '>' to go to next
+vim.keymap.set("n", "<leader>5", function() harpoon:list():select(5) end)
+vim.keymap.set("n", "<leader>6", function() harpoon:list():select(6) end)
+vim.keymap.set("n", "<leader>,", function() harpoon:list():prev() end)  -- CTRL + '<' to go to previous
+vim.keymap.set("n", "<leader>.", function() harpoon:list():next() end)  -- CTRL + '>' to go to next
 
 vim.keymap.set('n', '<leader>qz', function() 
 	harpoon:list():clear() end, { desc = "Clear Harpoon list" })
